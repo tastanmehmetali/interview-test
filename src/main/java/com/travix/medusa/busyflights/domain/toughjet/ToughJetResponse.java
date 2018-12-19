@@ -1,6 +1,8 @@
 package com.travix.medusa.busyflights.domain.toughjet;
 
-public class ToughJetResponse {
+import com.travix.medusa.busyflights.domain.ISupplierResponse;
+
+public class ToughJetResponse implements ISupplierResponse {
 
     private String carrier;
     private double basePrice;
@@ -74,4 +76,8 @@ public class ToughJetResponse {
     public void setInboundDateTime(final String inboundDateTime) {
         this.inboundDateTime = inboundDateTime;
     }
+
+	public double getCalculatedFare() {
+		return getBasePrice() + getTax() - getDiscount();
+	}
 }

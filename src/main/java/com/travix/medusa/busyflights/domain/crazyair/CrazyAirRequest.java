@@ -1,6 +1,9 @@
 package com.travix.medusa.busyflights.domain.crazyair;
 
-public class CrazyAirRequest {
+import com.travix.medusa.busyflights.domain.SupplierRequest;
+import com.travix.medusa.busyflights.domain.busyflights.BusyFlightsRequest;
+
+public class CrazyAirRequest extends SupplierRequest {
 
     private String origin;
     private String destination;
@@ -8,7 +11,17 @@ public class CrazyAirRequest {
     private String returnDate;
     private int passengerCount;
 
-    public String getOrigin() {
+    public CrazyAirRequest() {}
+    
+    public CrazyAirRequest(BusyFlightsRequest busyFlightsRequest) {
+    	this.origin = busyFlightsRequest.getOrigin();
+    	this.destination = busyFlightsRequest.getDestination();
+    	this.departureDate = busyFlightsRequest.getDepartureDate();
+    	this.returnDate = busyFlightsRequest.getReturnDate();
+    	this.passengerCount = busyFlightsRequest.getNumberOfPassengers();
+	}
+
+	public String getOrigin() {
         return origin;
     }
 

@@ -1,6 +1,8 @@
 package com.travix.medusa.busyflights.domain.crazyair;
 
-public class CrazyAirResponse {
+import com.travix.medusa.busyflights.domain.ISupplierResponse;
+
+public class CrazyAirResponse implements ISupplierResponse {
 
     private String airline;
     private double price;
