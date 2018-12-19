@@ -1,5 +1,7 @@
 package com.travix.medusa.busyflights.service;
 
+import static java.util.stream.Collectors.toList;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -7,6 +9,7 @@ import org.springframework.stereotype.Service;
 
 import com.travix.medusa.busyflights.domain.ISupplierResponse;
 import com.travix.medusa.busyflights.domain.SupplierRequest;
+import com.travix.medusa.busyflights.domain.busyflights.BusyFlightsResponse;
 import com.travix.medusa.busyflights.domain.toughjet.ToughJetRequest;
 import com.travix.medusa.busyflights.domain.toughjet.ToughJetResponse;
 import com.travix.medusa.busyflights.universe.Supplier;
@@ -25,6 +28,18 @@ public class ToughJetService implements IToughJetService, IAirlineService {
 		return toughJetResponses;
 	}
 
+	@Override
+	public List<ISupplierResponse> getFlights(SupplierRequest supplierRequest) {
+		List<ISupplierResponse> toughJetResponses = new ArrayList<>();
+		toughJetResponses.add(generatedToughJetResponse((ToughJetRequest) Supplier.TOUGHJET.mappedBy(supplierRequest)));
+		return toughJetResponses;
+	}
+
+	@Override
+	public List<BusyFlightsResponse> gatheringAllFlights(SupplierRequest supplierRequest) {
+		return getFlights(supplierRequest).stream().map(Supplier.TOUGHJET::convertTo).collect(toList());
+	}
+
 	private ISupplierResponse generatedToughJetResponse(ToughJetRequest toughJetRequest) {
 		ToughJetResponse toughJetResponse = new ToughJetResponse();
 		toughJetResponse.setCarrier(Supplier.TOUGHJET.getAirlineName());
@@ -37,13 +52,6 @@ public class ToughJetService implements IToughJetService, IAirlineService {
 		toughJetResponse.setInboundDateTime(toughJetRequest.getInboundDate());
 		
 		return toughJetResponse;
-	}
-
-	@Override
-	public List<ISupplierResponse> getFlights(SupplierRequest supplierRequest) {
-		List<ISupplierResponse> toughJetResponses = new ArrayList<>();
-		toughJetResponses.add(generatedToughJetResponse((ToughJetRequest) Supplier.TOUGHJET.mappedBy(supplierRequest)));
-		return toughJetResponses;
 	}
 
 }

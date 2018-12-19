@@ -10,6 +10,7 @@ import org.mockito.MockitoAnnotations;
 
 import com.travix.medusa.busyflights.domain.ISupplierResponse;
 import com.travix.medusa.busyflights.domain.busyflights.BusyFlightsRequest;
+import com.travix.medusa.busyflights.domain.busyflights.BusyFlightsResponse;
 import com.travix.medusa.busyflights.domain.crazyair.CrazyAirRequest;
 import com.travix.medusa.busyflights.domain.crazyair.CrazyAirResponse;
 import com.travix.medusa.busyflights.universe.Supplier;
@@ -59,6 +60,20 @@ public class CrazyAirServiceTest {
 		Assert.assertEquals(crazyAirResponse.getDepartureDate(), busyFlightsRequest.getDepartureDate());
 		Assert.assertEquals(crazyAirResponse.getArrivalDate(), busyFlightsRequest.getReturnDate());
 		Assert.assertEquals(crazyAirResponse.getAirline(), Supplier.CRAZYAIR.getAirlineName());
+	}
+	
+	@Test
+	public void shouldCheckedGatheringAllFlightByGivenBusyFlightRequest() {
+		BusyFlightsRequest busyFlightsRequest = generateBusyFlightRequest();
+		
+		List<BusyFlightsResponse> crazyAirLists = crazyAirService.gatheringAllFlights(busyFlightsRequest);
+		
+		BusyFlightsResponse busyFlightsResponse = crazyAirLists.get(0);
+		Assert.assertEquals(busyFlightsResponse.getDepartureAirportCode(), busyFlightsRequest.getOrigin());
+		Assert.assertEquals(busyFlightsResponse.getDestinationAirportCode(), busyFlightsRequest.getDestination());
+		Assert.assertEquals(busyFlightsResponse.getDepartureDate(), busyFlightsRequest.getDepartureDate());
+		Assert.assertEquals(busyFlightsResponse.getArrivalDate(), busyFlightsRequest.getReturnDate());
+		Assert.assertEquals(busyFlightsResponse.getAirline(), Supplier.CRAZYAIR.getAirlineName());
 	}
 
 	private BusyFlightsRequest generateBusyFlightRequest() {

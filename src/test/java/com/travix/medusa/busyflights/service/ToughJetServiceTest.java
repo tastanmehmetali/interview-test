@@ -10,6 +10,7 @@ import org.mockito.MockitoAnnotations;
 
 import com.travix.medusa.busyflights.domain.ISupplierResponse;
 import com.travix.medusa.busyflights.domain.busyflights.BusyFlightsRequest;
+import com.travix.medusa.busyflights.domain.busyflights.BusyFlightsResponse;
 import com.travix.medusa.busyflights.domain.toughjet.ToughJetRequest;
 import com.travix.medusa.busyflights.domain.toughjet.ToughJetResponse;
 import com.travix.medusa.busyflights.universe.Supplier;
@@ -62,7 +63,21 @@ public class ToughJetServiceTest {
 		Assert.assertEquals(toughJetResponse.getOutboundDateTime(), busyFlightsRequest.getDepartureDate());
 		Assert.assertEquals(toughJetResponse.getCarrier(), Supplier.TOUGHJET.getAirlineName());
 	}
-
+	
+	@Test
+	public void shouldCheckedGatheringAllFlightByGivenBusyFlightRequest() {
+		BusyFlightsRequest busyFlightsRequest = generatedBusyFlightRequest();
+		
+		ToughJetService toughJetService = new ToughJetService();
+		List<BusyFlightsResponse> toughJetLists = toughJetService.gatheringAllFlights(busyFlightsRequest);
+		
+		BusyFlightsResponse busyFlightsResponse = toughJetLists.get(0);
+		Assert.assertEquals(busyFlightsResponse.getDepartureAirportCode(), busyFlightsRequest.getOrigin());
+		Assert.assertEquals(busyFlightsResponse.getDestinationAirportCode(), busyFlightsRequest.getDestination());
+		Assert.assertEquals(busyFlightsResponse.getDepartureDate(), busyFlightsRequest.getDepartureDate());
+		Assert.assertEquals(busyFlightsResponse.getArrivalDate(), busyFlightsRequest.getReturnDate());
+		Assert.assertEquals(busyFlightsResponse.getAirline(), Supplier.TOUGHJET.getAirlineName());
+	}
 	private BusyFlightsRequest generatedBusyFlightRequest() {
 		BusyFlightsRequest busyFlightsRequest = new BusyFlightsRequest();
 		busyFlightsRequest.setOrigin(FROM_LHR);
