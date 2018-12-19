@@ -3,11 +3,14 @@ package com.travix.medusa.busyflights.service;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.springframework.stereotype.Service;
+
 import com.travix.medusa.busyflights.domain.ISupplierResponse;
 import com.travix.medusa.busyflights.domain.crazyair.CrazyAirRequest;
 import com.travix.medusa.busyflights.domain.crazyair.CrazyAirResponse;
 import com.travix.medusa.busyflights.universe.Supplier;
 
+@Service("crazyAirService")
 public class CrazyAirService implements ICrazyAirService {
 	
 	private static final String CABIN_CLASS_ECONOMY = "Economy";

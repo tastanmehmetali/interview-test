@@ -3,11 +3,14 @@ package com.travix.medusa.busyflights.service;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.springframework.stereotype.Service;
+
 import com.travix.medusa.busyflights.domain.ISupplierResponse;
 import com.travix.medusa.busyflights.domain.toughjet.ToughJetRequest;
 import com.travix.medusa.busyflights.domain.toughjet.ToughJetResponse;
 import com.travix.medusa.busyflights.universe.Supplier;
 
+@Service("toughJetService")
 public class ToughJetService implements IToughJetService {
 
 	private static final double DISCOUNT = 5.0;

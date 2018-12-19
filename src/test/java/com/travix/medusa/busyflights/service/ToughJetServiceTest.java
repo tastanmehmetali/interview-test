@@ -3,7 +3,10 @@ package com.travix.medusa.busyflights.service;
 import java.util.List;
 
 import org.junit.Assert;
+import org.junit.Before;
 import org.junit.Test;
+import org.mockito.InjectMocks;
+import org.mockito.MockitoAnnotations;
 
 import com.travix.medusa.busyflights.domain.ISupplierResponse;
 import com.travix.medusa.busyflights.domain.toughjet.ToughJetRequest;
@@ -18,6 +21,14 @@ public class ToughJetServiceTest {
 	private static final String TO_AMS = "AMS";
 	private static final String FROM_LHR = "LHR";
 
+	@InjectMocks
+	private ToughJetService toughJetService;
+
+	@Before
+	public void setUp() {
+		MockitoAnnotations.initMocks(this);
+	}
+		
 	@Test
 	public void shouldCheckedGetFlightByGivenToughJetRequest() {
 		ToughJetRequest toughJetRequest = new ToughJetRequest();
@@ -27,7 +38,6 @@ public class ToughJetServiceTest {
 		toughJetRequest.setInboundDate(INBOUND_DATE);
 		toughJetRequest.setNumberOfAdults(PASSENGER_COUNT);
 		
-		ToughJetService toughJetService = new ToughJetService();
 		List<ISupplierResponse> toughJetLists = toughJetService.getFlights(toughJetRequest);
 		
 		ToughJetResponse toughJetResponse = (ToughJetResponse) toughJetLists.get(0); 

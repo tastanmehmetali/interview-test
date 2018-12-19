@@ -3,7 +3,10 @@ package com.travix.medusa.busyflights.service;
 import java.util.List;
 
 import org.junit.Assert;
+import org.junit.Before;
 import org.junit.Test;
+import org.mockito.InjectMocks;
+import org.mockito.MockitoAnnotations;
 
 import com.travix.medusa.busyflights.domain.ISupplierResponse;
 import com.travix.medusa.busyflights.domain.crazyair.CrazyAirRequest;
@@ -17,6 +20,14 @@ public class CrazyAirServiceTest {
 	private static final String DEPARTURE_DATE = "2018-12-17";
 	private static final String DESTINATION_AMS = "AMS";
 	private static final String ORGIN_IST = "IST";
+
+	@InjectMocks
+	private CrazyAirService crazyAirService;
+
+	@Before
+	public void setUp() {
+		MockitoAnnotations.initMocks(this);
+	}
 	
 	@Test
 	public void shouldCheckedGetFlightByGivenCrazyAirRequest(){
@@ -27,7 +38,6 @@ public class CrazyAirServiceTest {
 		crazyAirRequest.setReturnDate(RETURN_DATE);
 		crazyAirRequest.setPassengerCount(PASSENGER_COUNT);
 		
-		CrazyAirService crazyAirService = new CrazyAirService();
 		List<ISupplierResponse> crazyAirLists = crazyAirService.getFlights(crazyAirRequest);
 		CrazyAirResponse crazyAirResponse = (CrazyAirResponse) crazyAirLists.get(0); 
 		Assert.assertEquals(crazyAirResponse.getDepartureAirportCode(), crazyAirRequest.getOrigin());
@@ -35,6 +45,5 @@ public class CrazyAirServiceTest {
 		Assert.assertEquals(crazyAirResponse.getDepartureDate(), crazyAirRequest.getDepartureDate());
 		Assert.assertEquals(crazyAirResponse.getArrivalDate(), crazyAirRequest.getReturnDate());
 		Assert.assertEquals(crazyAirResponse.getAirline(), Supplier.CRAZYAIR.getAirlineName());
-	}
-	
+	}	
 }
