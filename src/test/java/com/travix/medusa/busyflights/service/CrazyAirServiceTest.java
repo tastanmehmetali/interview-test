@@ -9,6 +9,7 @@ import org.mockito.InjectMocks;
 import org.mockito.MockitoAnnotations;
 
 import com.travix.medusa.busyflights.domain.ISupplierResponse;
+import com.travix.medusa.busyflights.domain.busyflights.BusyFlightsRequest;
 import com.travix.medusa.busyflights.domain.crazyair.CrazyAirRequest;
 import com.travix.medusa.busyflights.domain.crazyair.CrazyAirResponse;
 import com.travix.medusa.busyflights.universe.Supplier;
@@ -45,5 +46,28 @@ public class CrazyAirServiceTest {
 		Assert.assertEquals(crazyAirResponse.getDepartureDate(), crazyAirRequest.getDepartureDate());
 		Assert.assertEquals(crazyAirResponse.getArrivalDate(), crazyAirRequest.getReturnDate());
 		Assert.assertEquals(crazyAirResponse.getAirline(), Supplier.CRAZYAIR.getAirlineName());
-	}	
+	}
+
+	@Test
+	public void shouldCheckedGetFlightByGivenBusyFlightRequest() {
+		BusyFlightsRequest busyFlightsRequest = generateBusyFlightRequest();
+		
+		List<ISupplierResponse> crazyAirLists = crazyAirService.getFlights(busyFlightsRequest);
+		CrazyAirResponse crazyAirResponse = (CrazyAirResponse) crazyAirLists.get(0); 
+		Assert.assertEquals(crazyAirResponse.getDepartureAirportCode(), busyFlightsRequest.getOrigin());
+		Assert.assertEquals(crazyAirResponse.getDestinationAirportCode(), busyFlightsRequest.getDestination());
+		Assert.assertEquals(crazyAirResponse.getDepartureDate(), busyFlightsRequest.getDepartureDate());
+		Assert.assertEquals(crazyAirResponse.getArrivalDate(), busyFlightsRequest.getReturnDate());
+		Assert.assertEquals(crazyAirResponse.getAirline(), Supplier.CRAZYAIR.getAirlineName());
+	}
+
+	private BusyFlightsRequest generateBusyFlightRequest() {
+		BusyFlightsRequest busyFlightsRequest = new BusyFlightsRequest();
+		busyFlightsRequest.setOrigin(ORGIN_IST);
+		busyFlightsRequest.setDestination(DESTINATION_AMS);
+		busyFlightsRequest.setDepartureDate(DEPARTURE_DATE);
+		busyFlightsRequest.setReturnDate(RETURN_DATE);
+		busyFlightsRequest.setNumberOfPassengers(PASSENGER_COUNT);
+		return busyFlightsRequest;
+	}
 }

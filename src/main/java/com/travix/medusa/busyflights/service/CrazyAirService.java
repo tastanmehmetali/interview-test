@@ -6,12 +6,13 @@ import java.util.List;
 import org.springframework.stereotype.Service;
 
 import com.travix.medusa.busyflights.domain.ISupplierResponse;
+import com.travix.medusa.busyflights.domain.SupplierRequest;
 import com.travix.medusa.busyflights.domain.crazyair.CrazyAirRequest;
 import com.travix.medusa.busyflights.domain.crazyair.CrazyAirResponse;
 import com.travix.medusa.busyflights.universe.Supplier;
 
 @Service("crazyAirService")
-public class CrazyAirService implements ICrazyAirService {
+public class CrazyAirService implements ICrazyAirService, IAirlineService {
 	
 	private static final String CABIN_CLASS_ECONOMY = "Economy";
 	private static final double PRICE = 200.00;
@@ -34,6 +35,13 @@ public class CrazyAirService implements ICrazyAirService {
 		crazyAirResponse.setArrivalDate(crazyAirRequest.getReturnDate());
 
 		return crazyAirResponse;
+	}
+
+	@Override
+	public List<ISupplierResponse> getFlights(SupplierRequest supplierRequest) {
+		List<ISupplierResponse> crazyAirResponses = new ArrayList<>();
+		crazyAirResponses.add(generatedCrazyAirResponse((CrazyAirRequest) Supplier.CRAZYAIR.mappedBy(supplierRequest)));
+		return crazyAirResponses;
 	}
 
 }
