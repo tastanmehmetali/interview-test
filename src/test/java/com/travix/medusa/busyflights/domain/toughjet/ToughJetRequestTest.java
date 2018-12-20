@@ -1,5 +1,9 @@
 package com.travix.medusa.busyflights.domain.toughjet;
 
+import static org.junit.Assert.assertEquals;
+
+import org.json.JSONException;
+import org.json.JSONObject;
 import org.junit.Assert;
 import org.junit.Rule;
 import org.junit.Test;
@@ -20,18 +24,23 @@ public class ToughJetRequestTest {
 
 	@Test
 	public void shouldCreatedToughJetRequestCheck() {
-		ToughJetRequest toughJetRequest = new ToughJetRequest();
-		toughJetRequest.setFrom(FROM_LHR);
-		toughJetRequest.setTo(TO_AMS);
-		toughJetRequest.setOutboundDate(OUTBOUND_DATE);
-		toughJetRequest.setInboundDate(INBOUND_DATE);
-		toughJetRequest.setNumberOfAdults(PASSENGER_COUNT);
+		ToughJetRequest toughJetRequest = generatedToughJetRequest();
 
 		Assert.assertEquals(FROM_LHR, toughJetRequest.getFrom());
 		Assert.assertEquals(TO_AMS, toughJetRequest.getTo());
 		Assert.assertEquals(OUTBOUND_DATE, toughJetRequest.getOutboundDate());
 		Assert.assertEquals(INBOUND_DATE, toughJetRequest.getInboundDate());
 		Assert.assertEquals(PASSENGER_COUNT, toughJetRequest.getNumberOfAdults());
+	}
+
+	private ToughJetRequest generatedToughJetRequest() {
+		ToughJetRequest toughJetRequest = new ToughJetRequest();
+		toughJetRequest.setFrom(FROM_LHR);
+		toughJetRequest.setTo(TO_AMS);
+		toughJetRequest.setOutboundDate(OUTBOUND_DATE);
+		toughJetRequest.setInboundDate(INBOUND_DATE);
+		toughJetRequest.setNumberOfAdults(PASSENGER_COUNT);
+		return toughJetRequest;
 	}
 
 //	@Test
@@ -68,6 +77,18 @@ public class ToughJetRequestTest {
 		Assert.assertEquals(OUTBOUND_DATE, toughJetRequest.getOutboundDate());
 		Assert.assertEquals(INBOUND_DATE, toughJetRequest.getInboundDate());
 		Assert.assertEquals(PASSENGER_COUNT, toughJetRequest.getNumberOfAdults());
+	}
+	
+	@Test
+	public void shouldCheckedConvertToJsonByGivenCrazyAirRequest() throws JSONException {
+		ToughJetRequest toughJetRequest = generatedToughJetRequest();
+		
+		JSONObject generatedJsonObject = new JSONObject(toughJetRequest.convertToJson());
+		assertEquals(FROM_LHR, generatedJsonObject.getString("from"));
+		assertEquals(TO_AMS, generatedJsonObject.getString("to"));
+		assertEquals(OUTBOUND_DATE, generatedJsonObject.getString("outboundDate"));
+		assertEquals(INBOUND_DATE, generatedJsonObject.getString("inboundDate"));
+		assertEquals(PASSENGER_COUNT, generatedJsonObject.getInt("numberOfAdults"));
 	}
 
 }
