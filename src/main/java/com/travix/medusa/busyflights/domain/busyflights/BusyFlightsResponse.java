@@ -1,13 +1,29 @@
 package com.travix.medusa.busyflights.domain.busyflights;
 
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Pattern;
+
 public class BusyFlightsResponse {
 
+	@NotNull
 	private String airline;
+	
+	@NotNull
 	private String supplier;
 	private double fare;
+
+	@Pattern(regexp ="[A-Z]{3}")
+	@NotNull
 	private String departureAirportCode;
+
+	@Pattern(regexp ="[A-Z]{3}")
+	@NotNull
 	private String destinationAirportCode;
+	
+	@NotNull
 	private String departureDate;
+	
+	@NotNull
 	private String arrivalDate;
 
 	public String getAirline() {

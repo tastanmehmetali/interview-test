@@ -1,14 +1,33 @@
 package com.travix.medusa.busyflights.domain.toughjet;
 
+import javax.validation.constraints.Min;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Pattern;
+
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import com.travix.medusa.busyflights.domain.SupplierRequest;
 import com.travix.medusa.busyflights.domain.busyflights.BusyFlightsRequest;
 
 public class ToughJetRequest extends SupplierRequest {
 
+	@Pattern(regexp ="[A-Z]{3}")
+	@NotNull
     private String from;
+
+	@Pattern(regexp ="[A-Z]{3}")
+	@NotNull
     private String to;
+
+	@NotNull
     private String outboundDate;
+
+	@NotNull
     private String inboundDate;
+
+    @Min(value = 0, message = "Minimum 0")
+	@NotNull
     private int numberOfAdults;
 
     public ToughJetRequest() {}
@@ -60,4 +79,15 @@ public class ToughJetRequest extends SupplierRequest {
     public void setNumberOfAdults(final int numberOfAdults) {
         this.numberOfAdults = numberOfAdults;
     }
+
+	@Override
+	public String convertToJson() throws JSONException {
+		JSONObject jsonObject = new JSONObject();
+        jsonObject.put("from", getFrom());
+        jsonObject.put("to", getTo());
+        jsonObject.put("outboundDate", getOutboundDate());
+        jsonObject.put("inboundDate", getInboundDate());
+        jsonObject.put("numberOfAdults", getNumberOfAdults());
+        return jsonObject.toString();
+	}
 }

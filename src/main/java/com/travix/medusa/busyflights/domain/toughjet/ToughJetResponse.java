@@ -1,16 +1,37 @@
 package com.travix.medusa.busyflights.domain.toughjet;
 
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Pattern;
+import javax.validation.constraints.Size;
+
 import com.travix.medusa.busyflights.domain.ISupplierResponse;
 
 public class ToughJetResponse implements ISupplierResponse {
 
+	@NotNull
     private String carrier;
+
+	@NotNull
     private double basePrice;
+
+	@NotNull
     private double tax;
+
+	@NotNull
     private double discount;
+
+	@Pattern(regexp ="[A-Z]{3}")
+	@NotNull
     private String departureAirportName;
+
+	@Pattern(regexp ="[A-Z]{3}")
+	@NotNull
     private String arrivalAirportName;
+
+	@NotNull
     private String outboundDateTime;
+
+	@NotNull
     private String inboundDateTime;
 
     public String getCarrier() {

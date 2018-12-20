@@ -1,15 +1,33 @@
 package com.travix.medusa.busyflights.domain.crazyair;
 
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Pattern;
+
 import com.travix.medusa.busyflights.domain.ISupplierResponse;
 
 public class CrazyAirResponse implements ISupplierResponse {
 
+	@NotNull
     private String airline;
+
+	@NotNull
     private double price;
+
+	@NotNull
     private String cabinclass;
+
+	@Pattern(regexp ="[A-Z]{3}")
+	@NotNull
     private String departureAirportCode;
+
+	@Pattern(regexp ="[A-Z]{3}")
+	@NotNull
     private String destinationAirportCode;
+
+	@NotNull
     private String departureDate;
+
+	@NotNull
     private String arrivalDate;
 
     public String getAirline() {
