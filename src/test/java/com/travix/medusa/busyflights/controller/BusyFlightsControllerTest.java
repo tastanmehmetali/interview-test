@@ -10,6 +10,8 @@ import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
+import org.mockito.InjectMocks;
+import org.mockito.Mock;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.http.HttpStatus;
@@ -22,6 +24,8 @@ import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import org.springframework.web.context.WebApplicationContext;
 
 import com.travix.medusa.busyflights.domain.busyflights.BusyFlightsRequest;
+import com.travix.medusa.busyflights.endpoints.CrazyAirEndPoint;
+import com.travix.medusa.busyflights.service.CrazyAirService;
 import com.travix.medusa.busyflights.universe.Supplier;
 
 @RunWith(SpringRunner.class)
@@ -39,7 +43,10 @@ public class BusyFlightsControllerTest {
 	private WebApplicationContext wac;
 
 	private MockMvc mockMvc;
-
+	
+	@InjectMocks
+	private CrazyAirService crazyAirService;
+	
 	@Before
 	public void setup() {
 		mockMvc = MockMvcBuilders.webAppContextSetup(wac).build();
