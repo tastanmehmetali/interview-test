@@ -1,5 +1,7 @@
 package com.travix.medusa.busyflights.universe;
 
+import java.util.Locale;
+
 import org.junit.Assert;
 import org.junit.Test;
 
@@ -135,13 +137,13 @@ public class SupplierTest {
 	@Test
 	public void shouldCheckedSupplierNameForCrazyAir() {
 		Supplier crazyAir = Supplier.CRAZYAIR;
-		Assert.assertEquals(crazyAir.getAirlineName().toUpperCase(), crazyAir.getSupplierName());
+		Assert.assertEquals(crazyAir.getAirlineName().toUpperCase(Locale.US), crazyAir.getSupplierName());
 	}
 	
 	@Test
 	public void shouldCheckedSupplierNameForToughJet() {
 		Supplier crazyAir = Supplier.TOUGHJET;
-		Assert.assertEquals(crazyAir.getAirlineName().toUpperCase(), crazyAir.getSupplierName());
+		Assert.assertEquals(crazyAir.getAirlineName().toUpperCase(Locale.US), crazyAir.getSupplierName());
 	}
 	
 	private BusyFlightsRequest generateBusyFlightRequest() {

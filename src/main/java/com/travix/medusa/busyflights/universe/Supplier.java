@@ -1,5 +1,7 @@
 package com.travix.medusa.busyflights.universe;
 
+import java.util.Locale;
+
 import com.travix.medusa.busyflights.domain.ISupplierResponse;
 import com.travix.medusa.busyflights.domain.SupplierRequest;
 import com.travix.medusa.busyflights.domain.busyflights.BusyFlightsRequest;
@@ -68,7 +70,7 @@ public enum Supplier {
 	}
 	
 	public String getSupplierName() {
-		return airlineName.toUpperCase();
+		return airlineName.toUpperCase(Locale.US);
 	}
 
 	public abstract SupplierRequest mappedBy(SupplierRequest supplierRequest);
