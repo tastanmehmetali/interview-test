@@ -17,12 +17,11 @@ import com.travix.medusa.busyflights.service.IBusyFlightService;
 @RestController
 public class BusyFlightsController {
 
-    @Autowired
-    private IBusyFlightService busyFlightService;
+	@Autowired
+	private IBusyFlightService busyFlightService;
 
-    @PostMapping(value = "/busy/flights")
-    public @ResponseBody
-    List<BusyFlightsResponse> getFlights(@Valid @RequestBody BusyFlightsRequest request) {
-        return busyFlightService.getFlights(request);
-    }
+	@PostMapping(value = "/busy/flights")
+	public @ResponseBody List<BusyFlightsResponse> getFlights(@Valid @RequestBody BusyFlightsRequest request) {
+		return busyFlightService.getFlights(request);
+	}
 }
