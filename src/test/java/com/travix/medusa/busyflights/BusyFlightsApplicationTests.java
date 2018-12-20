@@ -11,6 +11,7 @@ public class BusyFlightsApplicationTests {
 
 	@Test
 	public void contextLoads() {
+		BusyFlightsApplication.main(new String[] {});
 	}
 
 }
