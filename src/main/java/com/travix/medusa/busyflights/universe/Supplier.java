@@ -24,7 +24,7 @@ public enum Supplier {
 			CrazyAirResponse crazyAirResponse = (CrazyAirResponse) supplierResponse;
 			
 			busyFlightsResponse.setAirline(crazyAirResponse.getAirline());
-			busyFlightsResponse.setSupplier(getAirlineName());
+			busyFlightsResponse.setSupplier(getSupplierName());
 			busyFlightsResponse.setFare(crazyAirResponse.getPrice());
 			busyFlightsResponse.setDepartureAirportCode(crazyAirResponse.getDepartureAirportCode());
 			busyFlightsResponse.setDestinationAirportCode(crazyAirResponse.getDestinationAirportCode());
@@ -46,7 +46,7 @@ public enum Supplier {
 			ToughJetResponse toughJetResponse = (ToughJetResponse) supplierResponse;
 			
 			busyFlightsResponse.setAirline(toughJetResponse.getCarrier());
-			busyFlightsResponse.setSupplier(getAirlineName());
+			busyFlightsResponse.setSupplier(getSupplierName());
 			busyFlightsResponse.setFare(toughJetResponse.getCalculatedFare());
 			busyFlightsResponse.setDepartureAirportCode(toughJetResponse.getDepartureAirportName());
 			busyFlightsResponse.setDestinationAirportCode(toughJetResponse.getArrivalAirportName());
@@ -65,6 +65,10 @@ public enum Supplier {
 
 	public String getAirlineName() {
 		return airlineName;
+	}
+	
+	public String getSupplierName() {
+		return airlineName.toUpperCase();
 	}
 
 	public abstract SupplierRequest mappedBy(SupplierRequest supplierRequest);

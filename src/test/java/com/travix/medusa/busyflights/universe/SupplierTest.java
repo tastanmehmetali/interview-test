@@ -77,6 +77,21 @@ public class SupplierTest {
 	
 	@Test
 	public void shouldCheckedConvertToBusyFlightsResponseGivenCrazyAirResponse() {
+		CrazyAirResponse crazyAirResponse = generatedCrazyAirResponse();
+		
+		Supplier crazyAir = Supplier.CRAZYAIR;
+		BusyFlightsResponse busyFlightsResponse = crazyAir.convertTo(crazyAirResponse);
+		
+		Assert.assertEquals(AIRLINE, busyFlightsResponse.getAirline());
+		Assert.assertEquals(crazyAir.getSupplierName(), busyFlightsResponse.getSupplier());
+		Assert.assertEquals(ZERO, PRICE, busyFlightsResponse.getFare());
+		Assert.assertEquals(ORGIN_IST, busyFlightsResponse.getDepartureAirportCode());
+		Assert.assertEquals(DESTINATION_AMS, busyFlightsResponse.getDestinationAirportCode());
+		Assert.assertEquals(DEPARTURE_DATE, busyFlightsResponse.getDepartureDate());
+		Assert.assertEquals(RETURN_DATE, busyFlightsResponse.getArrivalDate());
+	}
+
+	private CrazyAirResponse generatedCrazyAirResponse() {
 		CrazyAirResponse crazyAirResponse = new CrazyAirResponse();
 		crazyAirResponse.setAirline(AIRLINE);
 		crazyAirResponse.setPrice(PRICE);
@@ -85,21 +100,26 @@ public class SupplierTest {
 		crazyAirResponse.setDestinationAirportCode(DESTINATION_AMS);
 		crazyAirResponse.setDepartureDate(DEPARTURE_DATE);
 		crazyAirResponse.setArrivalDate(RETURN_DATE);
+		return crazyAirResponse;
+	}
+	
+	@Test
+	public void shouldCheckedConvertToBusyFlightsResponseGivenToughJetResponse() {
+		ToughJetResponse toughJetResponse = generatedToughJetResponse();
 		
-		Supplier crazyAir = Supplier.CRAZYAIR;
-		BusyFlightsResponse busyFlightsResponse = crazyAir.convertTo(crazyAirResponse);
+		Supplier toughJet = Supplier.TOUGHJET;
+		BusyFlightsResponse busyFlightsResponse = toughJet.convertTo(toughJetResponse);
 		
 		Assert.assertEquals(AIRLINE, busyFlightsResponse.getAirline());
-		Assert.assertEquals(crazyAir.getAirlineName(), busyFlightsResponse.getSupplier());
+		Assert.assertEquals(toughJet.getSupplierName(), busyFlightsResponse.getSupplier());
 		Assert.assertEquals(ZERO, PRICE, busyFlightsResponse.getFare());
 		Assert.assertEquals(ORGIN_IST, busyFlightsResponse.getDepartureAirportCode());
 		Assert.assertEquals(DESTINATION_AMS, busyFlightsResponse.getDestinationAirportCode());
 		Assert.assertEquals(DEPARTURE_DATE, busyFlightsResponse.getDepartureDate());
 		Assert.assertEquals(RETURN_DATE, busyFlightsResponse.getArrivalDate());
 	}
-	
-	@Test
-	public void shouldCheckedConvertToBusyFlightsResponseGivenToughJetResponse() {
+
+	private ToughJetResponse generatedToughJetResponse() {
 		ToughJetResponse toughJetResponse = new ToughJetResponse();
 		toughJetResponse.setCarrier(AIRLINE);
 		toughJetResponse.setBasePrice(PRICE);
@@ -109,17 +129,19 @@ public class SupplierTest {
 		toughJetResponse.setArrivalAirportName(DESTINATION_AMS);
 		toughJetResponse.setOutboundDateTime(DEPARTURE_DATE);
 		toughJetResponse.setInboundDateTime(RETURN_DATE);
-		
-		Supplier toughJet = Supplier.TOUGHJET;
-		BusyFlightsResponse busyFlightsResponse = toughJet.convertTo(toughJetResponse);
-		
-		Assert.assertEquals(AIRLINE, busyFlightsResponse.getAirline());
-		Assert.assertEquals(toughJet.getAirlineName(), busyFlightsResponse.getSupplier());
-		Assert.assertEquals(ZERO, PRICE, busyFlightsResponse.getFare());
-		Assert.assertEquals(ORGIN_IST, busyFlightsResponse.getDepartureAirportCode());
-		Assert.assertEquals(DESTINATION_AMS, busyFlightsResponse.getDestinationAirportCode());
-		Assert.assertEquals(DEPARTURE_DATE, busyFlightsResponse.getDepartureDate());
-		Assert.assertEquals(RETURN_DATE, busyFlightsResponse.getArrivalDate());
+		return toughJetResponse;
+	}
+	
+	@Test
+	public void shouldCheckedSupplierNameForCrazyAir() {
+		Supplier crazyAir = Supplier.CRAZYAIR;
+		Assert.assertEquals(crazyAir.getAirlineName().toUpperCase(), crazyAir.getSupplierName());
+	}
+	
+	@Test
+	public void shouldCheckedSupplierNameForToughJet() {
+		Supplier crazyAir = Supplier.TOUGHJET;
+		Assert.assertEquals(crazyAir.getAirlineName().toUpperCase(), crazyAir.getSupplierName());
 	}
 	
 	private BusyFlightsRequest generateBusyFlightRequest() {
